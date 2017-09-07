@@ -19,11 +19,13 @@ function displayGifInfo() {
 		//$('#gifs').html(response.data[1].url);
 		//var gifView = $("<div>");
 		var result = response
-		console.log(result)
-		var pRating = $("<p>").text("Rating " + result.data[1].rating);
-		$("#gifs").append(pRating) 
-		var gifImg = $("<img>").attr("src", result.data[1].images.original.url)
-		$("#gifs").append(gifImg);
+		//console.log(result)
+		for (var i = 0; i < 10; i ++) {
+			var pRating = $("<p>").text("Rating " + result.data[i].rating);
+			$("#gifs").append(pRating) 
+			var gifImg = $("<img>").attr("src", result.data[i].images.original.url)
+			$("#gifs").append(gifImg);
+		}
 	});
 };
 
