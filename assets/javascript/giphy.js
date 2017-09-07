@@ -5,23 +5,32 @@
 var gifs = ['Captain Kirk', 'Mr Spock', 'Captain Picard', 'Commander Riker'];
 
 function displayGifInfo() {
-	var b = $(this).attr("data-name")
 	
+	var b = $(this).attr("data-name")
+	$("#gifs").empty();
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + b + "&api_key=2d968b725bf342d2a9b529c51a234a77&limit=10";
 	console.log(queryURL);
 	$.ajax({
 		url: queryURL,
 		method: "GET"
 	}).done(function(response) {
-		console.log(response)
-		console.log(response.data[1].url)
-		$('#gifs').html(response.data[1].url);
+		//console.log(response)
+		//console.log(response.data[1].url)
+		//$('#gifs').html(response.data[1].url);
+		//var gifView = $("<div>");
+		var result = response
+		console.log(result)
+		var pRating = $("<p>").text("Rating " + result.data[1].rating);
+		$("#gifs").append(pRating) 
+		var gifImg = $("<img>").attr("src", result.data[1].images.original.url)
+		$("#gifs").append(gifImg);
 	});
 };
 
 
 function renderButtons() {
 	$('#gif-buttons').empty();
+	//$("#gifs").empty();
 	for (var i = 0; i < gifs.length; i++) {
 		var a = $('<button>');
 		a.addClass('gif');
@@ -33,6 +42,7 @@ function renderButtons() {
 
 $('#add-gif').on('click', function(event) {
 	event.preventDefault();
+	$("#gifs").empty();
 	var gif = $("#gif-input").val().trim();
 	gifs.push(gif);
 	console.log(gif)
@@ -40,4 +50,5 @@ $('#add-gif').on('click', function(event) {
 });
 
 $(document).on("click", ".gif", displayGifInfo);
-renderButtons();
+	//$("#gifs").empty()
+	renderButtons();
