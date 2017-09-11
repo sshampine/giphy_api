@@ -14,17 +14,22 @@ function displayGifInfo() {
 		url: queryURL,
 		method: "GET"
 	}).done(function(response) {
-		//console.log(response)
+		console.log(response)
 		//console.log(response.data[1].url)
 		//$('#gifs').html(response.data[1].url);
-		//var gifView = $("<div>");
+		var gifDiv = $("<div>");
 		var result = response
 		//console.log(result)
 		for (var i = 0; i < 10; i ++) {
-			var pRating = $("<p>").text("Rating " + result.data[i].rating);
+			var pRating = $("<p>").text("Rating: " + result.data[i].rating);
 			$("#gifs").append(pRating) 
-			var gifImg = $("<img>").attr("src", result.data[i].images.original.url)
-			$("#gifs").append(gifImg);
+			//var gifImg = $("<img>").attr("src", result.data[i].images.original.url)
+			var gifImg = $("<img>")
+			gifImg.attr("src", result.data[i].images.original_still.url)
+			gifImg.attr("data-state", "still")
+			gifDiv.append(pRating)
+			gifDiv.append(gifImg)
+			$("#gifs").prepend(gifDiv);
 		}
 	});
 };
