@@ -2,6 +2,8 @@
 
 // Initial array of gifs
 
+
+
 var gifs = ['Captain Kirk', 'Mr Spock', 'Captain Picard', 'Commander Riker'];
 
 function displayGifInfo() {
@@ -25,13 +27,21 @@ function displayGifInfo() {
 			$("#gifs").append(pRating) 
 			//var gifImg = $("<img>").attr("src", result.data[i].images.original.url)
 			var gifImg = $("<img>")
+			//var gifImgB = result.data[i].images.original.url;
 			gifImg.attr("src", result.data[i].images.original_still.url)
 			gifImg.attr("data-state", "still")
+			gifImg.attr("class", "gifff")
+			gifImg.attr("data-still", result.data[i].images.original_still.url)
+			gifImg.attr("data-animate", result.data[i].images.original.url)
+			//gifImgB.attr("data-animate", "animate")
 			gifDiv.append(pRating)
 			gifDiv.append(gifImg)
+			//gifDiv.append(givImgB)
 			$("#gifs").prepend(gifDiv);
 		}
 	});
+
+
 };
 
 
@@ -56,6 +66,22 @@ $('#add-gif').on('click', function(event) {
 	renderButtons();
 });
 
+function gifSwitch() {
+	var state = $(this).attr("data-state");
+	console.log("the state is: " + state)
+	if (state === "still") {
+		$(this).attr("src", $(this).attr("data-animate"));
+		$(this).attr("data-state", "animate");
+	} else if (state === "animate") {
+		$(this).attr("src", $(this).attr("data-still"));
+		$(this).attr("data-state", "still");
+	}
+}
+
 $(document).on("click", ".gif", displayGifInfo);
 	//$("#gifs").empty()
 	renderButtons();
+$(document).on("click", ".gifff", gifSwitch); 
+	//var state = $(this).attr("data-state");
+	//console.log("the state is " + state);
+
