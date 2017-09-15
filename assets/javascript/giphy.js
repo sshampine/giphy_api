@@ -4,7 +4,7 @@
 
 
 
-var gifs = ['Captain Kirk', 'Mr Spock', 'Captain Picard', 'Commander Riker'];
+var gifs = ['Game of Thrones', 'Star Trek', 'American Horror Story', 'The Simpsons', "Preacher"];
 
 function displayGifInfo() {
 	
@@ -24,7 +24,7 @@ function displayGifInfo() {
 		//console.log(result)
 		for (var i = 0; i < 10; i ++) {
 			var pRating = $("<p>").text("Rating: " + result.data[i].rating);
-			$("#gifs").append(pRating) 
+			//$("#gifs").append(pRating) 
 			//var gifImg = $("<img>").attr("src", result.data[i].images.original.url)
 			var gifImg = $("<img>")
 			//var gifImgB = result.data[i].images.original.url;
@@ -34,10 +34,12 @@ function displayGifInfo() {
 			gifImg.attr("data-still", result.data[i].images.original_still.url)
 			gifImg.attr("data-animate", result.data[i].images.original.url)
 			//gifImgB.attr("data-animate", "animate")
-			gifDiv.append(pRating)
-			gifDiv.append(gifImg)
+			//gifDiv.append(pRating)
+			//gifDiv.append(gifImg)
 			//gifDiv.append(givImgB)
-			$("#gifs").prepend(gifDiv);
+			var gifTest = $("<button>").append(pRating, gifImg);
+			$("#gifs").append(gifTest)
+			//$("#gifs").prepend(gifDiv);
 		}
 	});
 
@@ -68,13 +70,15 @@ $('#add-gif').on('click', function(event) {
 
 function gifSwitch() {
 	var state = $(this).attr("data-state");
-	console.log("the state is: " + state)
+	//console.log("the state is: " + state)
 	if (state === "still") {
 		$(this).attr("src", $(this).attr("data-animate"));
 		$(this).attr("data-state", "animate");
+		console.log("gif is moving");
 	} else if (state === "animate") {
 		$(this).attr("src", $(this).attr("data-still"));
 		$(this).attr("data-state", "still");
+		console.log("gif is still");
 	}
 }
 

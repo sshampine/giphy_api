@@ -1,2 +1,16 @@
+img {
+	max-height: 150px;
+}
 
+button {
+	background-color: #ffffff;
+	border: none;
+	margin: 5px 5px;
+}
 
+.gif {
+	background-color: black;
+	color: white;
+	margin: 10px 5px 20px 0px;
+	padding: 5px;
+}
