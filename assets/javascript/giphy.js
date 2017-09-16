@@ -1,55 +1,38 @@
 
 
-// Initial array of gifs
+// Initial array of TV show gifs
+var gifs = ['Game of Thrones', 'Star Trek', 'American Horror Story', 'The Simpsons', "AMC Preacher"];
 
-
-
-var gifs = ['Game of Thrones', 'Star Trek', 'American Horror Story', 'The Simpsons', "Preacher"];
-
-function displayGifInfo() {
-	
+//AJAX function that assigns JSON data and appends to gifs ID
+function displayGifInfo() {	
 	var b = $(this).attr("data-name")
 	$("#gifs").empty();
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + b + "&api_key=2d968b725bf342d2a9b529c51a234a77&limit=10";
-	console.log(queryURL);
+	//console.log(queryURL);
 	$.ajax({
 		url: queryURL,
 		method: "GET"
 	}).done(function(response) {
-		console.log(response)
-		//console.log(response.data[1].url)
-		//$('#gifs').html(response.data[1].url);
+		//console.log(response)
 		var gifDiv = $("<div>");
 		var result = response
-		//console.log(result)
 		for (var i = 0; i < 10; i ++) {
 			var pRating = $("<p>").text("Rating: " + result.data[i].rating);
-			//$("#gifs").append(pRating) 
-			//var gifImg = $("<img>").attr("src", result.data[i].images.original.url)
 			var gifImg = $("<img>")
-			//var gifImgB = result.data[i].images.original.url;
 			gifImg.attr("src", result.data[i].images.original_still.url)
 			gifImg.attr("data-state", "still")
 			gifImg.attr("class", "gifff")
 			gifImg.attr("data-still", result.data[i].images.original_still.url)
 			gifImg.attr("data-animate", result.data[i].images.original.url)
-			//gifImgB.attr("data-animate", "animate")
-			//gifDiv.append(pRating)
-			//gifDiv.append(gifImg)
-			//gifDiv.append(givImgB)
 			var gifTest = $("<button>").append(pRating, gifImg);
 			$("#gifs").append(gifTest)
-			//$("#gifs").prepend(gifDiv);
 		}
 	});
-
-
 };
 
-
+//Function that renders gif buttons from an array
 function renderButtons() {
 	$('#gif-buttons').empty();
-	//$("#gifs").empty();
 	for (var i = 0; i < gifs.length; i++) {
 		var a = $('<button>');
 		a.addClass('gif');
@@ -59,18 +42,18 @@ function renderButtons() {
 	}
 };
 
+//Click handler that calls takes value of input field and calls renderButtons to create additional button
 $('#add-gif').on('click', function(event) {
 	event.preventDefault();
 	$("#gifs").empty();
 	var gif = $("#gif-input").val().trim();
 	gifs.push(gif);
-	console.log(gif)
 	renderButtons();
 });
 
+//Function that changes data-state and img source to animate from still and vice versa
 function gifSwitch() {
 	var state = $(this).attr("data-state");
-	//console.log("the state is: " + state)
 	if (state === "still") {
 		$(this).attr("src", $(this).attr("data-animate"));
 		$(this).attr("data-state", "animate");
@@ -82,10 +65,12 @@ function gifSwitch() {
 	}
 }
 
+//Click handler that calls displayGifInfo function and calls renderButtons function if
+//.gif element is clicked
 $(document).on("click", ".gif", displayGifInfo);
-	//$("#gifs").empty()
 	renderButtons();
+
+//Click handler that calls gifSwitch function if .gifff element is clicked
 $(document).on("click", ".gifff", gifSwitch); 
-	//var state = $(this).attr("data-state");
-	//console.log("the state is " + state);
+	
 

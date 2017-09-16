@@ -3,14 +3,14 @@ img {
 }
 
 button {
-	background-color: #ffffff;
+	background-color: #fff;
 	border: none;
 	margin: 5px 5px;
 }
 
 .gif {
-	background-color: black;
-	color: white;
+	background-color: #000;
+	color: #fff;
 	margin: 10px 5px 20px 0px;
 	padding: 5px;
 }
