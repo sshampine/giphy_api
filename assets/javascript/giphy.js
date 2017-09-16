@@ -7,7 +7,7 @@ var gifs = ['Game of Thrones', 'Star Trek', 'American Horror Story', 'The Simpso
 function displayGifInfo() {	
 	var b = $(this).attr("data-name")
 	$("#gifs").empty();
-	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + b + "&api_key=2d968b725bf342d2a9b529c51a234a77&limit=10";
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + b + "&rating=g&api_key=2d968b725bf342d2a9b529c51a234a77&limit=10";
 	//console.log(queryURL);
 	$.ajax({
 		url: queryURL,
